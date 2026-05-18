@@ -11,7 +11,6 @@
 \usetikzlibrary{shapes.misc,calc,intersections,patterns,decorations.pathreplacing}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,pdfpagemode=UseNone,pdfstartview={XYZ null null 1.00}}
-\usepackage{cmtiup}
 
 \pagestyle{plain}
 \linespread{1.2}
@@ -51,186 +50,337 @@
 
 \begin{document}
 
-\title{A local lemma refinement of the \\
-Balogh--Eberhard--Narayanan--Treglown--Wagner \\
-lower bound for Folkman's theorem}
+\title{A refined local lemma lower bound for Folkman's theorem}
 
 \author{Christ Xu}
-\address{Department of Mathematics, University of Michigan, 530 Church Street, Ann Arbor MI 48109, USA}
-\email{christ.xu1980@gmail.com}
+\email{chrxu@umich.edu}
 
 \date{\today}
 
 \subjclass[2020]{Primary 05D10; Secondary 05D40}
 
 \begin{abstract}
-Folkman's theorem asserts that for each $k \in \N$, there exists a natural number $n = F(k)$ such that whenever the elements of $[n]$ are two-coloured, there exists a set $A \subset [n]$ of size $k$ with the property that all the sums of the form $\sum_{x \in B} x$, where $B$ is a nonempty subset of $A$, are contained in $[n]$ and have the same colour. Balogh, Eberhard, Narayanan, Treglown and Wagner~\cite{BENTW} proved that $F(k) \ge 2^{2^{k-1}/k}$ for all $k \in \N$. Their proof uses a random colouring based on the $2$-adic valuation, followed by a union bound over all $k$-sets. We observe that the same random colouring combined with the Lov\'{a}sz local lemma gives the stronger estimate
+Folkman's theorem asserts that for each $k \in \N$, there exists a natural number $n = F(k)$ such that whenever the elements of $[n]$ are two-coloured, there exists a set $A \subset [n]$ of size $k$ with the property that all the sums of the form $\sum_{x \in B} x$, where $B$ is a nonempty subset of $A$, are contained in $[n]$ and have the same colour. Balogh, Eberhard, Narayanan, Treglown and Wagner~\cite{BENTW} proved that $F(k) \ge 2^{2^{k-1}/k}$ for all $k \in \N$. Their proof uses a random colouring based on the $2$-adic valuation, followed by a union bound over all $k$-sets. We refine the local lemma version of this argument by keeping the total-sum constraint in the dependency count. This gives the stronger estimate
 \[
-F(k) \ge 2^{2^{k-1}/(k-1) - O(1)}.
+F(k) \ge c k^2 2^{2^{k-1}/(k-1)}
 \]
-Equivalently, for some absolute constant $C > 0$ and all sufficiently large $k$,
-\[
-F(k) > 2^{(2^{k-1} - Ck)/(k-1)}.
-\]
+for some absolute constant $c>0$ and all sufficiently large $k$. 
 \end{abstract}
 \maketitle
 
 \section{Introduction}\label{intro}
 
-Schur's theorem, proved in 1916, is one of the central results of Ramsey theory and asserts that whenever the elements of $\N$ are finitely coloured, there exists a monochromatic set of the form $\{x, y, x+y\}$ for some $x, y \in \N$. About fifty years ago, a wide generalisation of Schur's theorem was obtained independently by Folkman, Rado and Sanders, and this generalisation is now commonly referred to as Folkman's theorem (see~\cite{graham}, for example). To state Folkman's theorem, it will be convenient to have some notation. For $n \in \N$, we write $[n]$ for the set $\{1, 2, \dots, n\}$, and for a finite set $A \subset \N$, let
+Schur's theorem, proved in 1916, is one of the central results of Ramsey theory and asserts that whenever the elements of $\N$ are finitely coloured, there exists a monochromatic set of the form $\{x, y, x+y\}$ for some $x, y \in \N$. About fifty years ago, a wide generalisation of Schur's theorem was obtained independently by Folkman, Rado and Sanders, and this generalisation is now commonly referred to as Folkman's theorem; see~\cite{graham}, for example. To state Folkman's theorem, it will be convenient to have some notation. For $n \in \N$, write $[n]$ for the set $\{1, 2, \dots, n\}$, and for a finite set $A \subset \N$, let
 \[
 S(A) = \left\{ \sum_{x \in B} x : B \subset A \text{ and } B \ne \emptyset \right\}
 \]
-denote the set of all \emph{finite sums} of $A$. In this language, Folkman's theorem states that for all $k, r \in \N$, there exists a natural number $n = F(k,r)$ such that whenever the elements of $[n]$ are $r$-coloured, there exists a set $A \subset [n]$ of size $k$ such that $S(A)$ is a monochromatic subset of $[n]$; of course, it is easy to see that Folkman's theorem, in the case where $k = 2$, implies Schur's theorem.
+denote the set of all nonempty finite sums of elements of $A$. In this language, Folkman's theorem states that for all $k, r \in \N$, there exists a natural number $n = F(k,r)$ such that whenever the elements of $[n]$ are $r$-coloured, there exists a set $A \subset [n]$ of size $k$ such that $S(A)$ is a monochromatic subset of $[n]$. In the case $k=2$, this implies Schur's theorem.
 
-In this note, we shall be concerned with lower bounds for the two-colour Folkman numbers, i.e., for the quantity $F(k) = F(k,2)$. All logarithms are to the base~$2$. In 1989, Erd\H{o}s and Spencer~\cite{erdosspencer} proved that
+In this note we consider the two-colour Folkman numbers, namely $F(k)=F(k,2)$. All logarithms are to the base $2$. In 1989, Erd\H{o}s and Spencer~\cite{erdosspencer} proved that
 \begin{equation}\label{es}
-F(k) \ge 2^{ck^2/\log k}
+F(k) \ge 2^{c k^2/\log k}
 \end{equation}
-for all $k \in \N$, where $c > 0$ is an absolute constant. This bound stood until the recent breakthrough of Balogh, Eberhard, Narayanan, Treglown and Wagner~\cite{BENTW}, who established the doubly exponential lower bound
+for all $k \in \N$, where $c>0$ is an absolute constant. This was substantially improved by Balogh, Eberhard, Narayanan, Treglown and Wagner~\cite{BENTW}, who proved
 \begin{equation}\label{bentw}
 F(k) \ge 2^{2^{k-1}/k}
 \end{equation}
-for all $k \in \N$. Their proof introduces a clever random colouring based on the $2$-adic valuation in which colours alternate along geometric progressions of the form $q, 2q, 4q, \dots$ for odd $q$. They show that any $k$-set $A$ with $S(A)$ monochromatic must have all $2^k - 1$ subset sums distinct, and that the monochromatic event then has probability at most $2^{1-2^{k-1}}$. A union bound over at most $(en/k)^k$ candidate sets completes their argument.
+for all $k \in \N$. Their proof introduced a random colouring based on the $2$-adic valuation: independently colour each odd integer and then alternate colours along each progression $q,2q,4q,\dots$ with $q$ odd. They showed that, under this colouring, every fixed $k$-set $A$ satisfies
+\[
+\mathbb P(S(A)\text{ is monochromatic})\le 2^{1-2^{k-1}},
+\]
+and then applied a union bound over all possible $k$-sets.
 
-Our contribution is the observation that the union bound in the argument of~\cite{BENTW} can be replaced by the Lov\'{a}sz local lemma. The reason this is possible is that the event $\{S(A) \text{ is monochromatic}\}$ depends only on the random bits indexed by the odd parts of the elements of $S(A)$, and a fixed odd integer can appear as the odd part of a subset sum for only polynomially many candidate sets. This yields an improved exponent.
+The union bound discards the locality of the random colouring. The event that $S(A)$ is monochromatic depends only on the random bits indexed by the odd parts of the elements of $S(A)$. Thus two bad events are independent whenever their sets of odd parts are disjoint. The Lov\'{a}sz local lemma therefore allows one to replace the global count of all $k$-sets by a count of those $k$-sets whose subset sums share a fixed odd part.
+
+Our contribution is a sharpened version of this local lemma argument. The main point is that if a fixed odd integer $q$ occurs as the odd part of a subset sum of a candidate set $B$, then some nonempty subset $T\subseteq B$ has sum $q2^j$. Counting both $T$ and its complement in $B$ using their total-sum constraints, rather than merely bounding each remaining element individually, yields a factorial saving in the dependency degree. This saving translates into a polynomial improvement in the lower bound.
 
 \begin{theorem}\label{mainthm}
-There is an absolute constant $C > 0$ such that, for all sufficiently large $k$,
-\begin{equation}\label{nb}
-F(k) > 2^{(2^{k-1} - Ck)/(k-1)}.
+There is an absolute constant $c>0$ such that, for all sufficiently large $k$,
+\begin{equation}\label{mainbound}
+F(k) \ge c k^2 2^{2^{k-1}/(k-1)}.
 \end{equation}
 Consequently,
-\begin{equation}\label{nb2}
-\log F(k) \ge \frac{2^{k-1}}{k-1} - O(1).
+\begin{equation}\label{logmainbound}
+\log F(k) \ge \frac{2^{k-1}}{k-1}+2\log k-O(1).
 \end{equation}
 \end{theorem}
 
-The gain in the exponent over~\eqref{bentw} is
+Compared with~\eqref{bentw}, this improves the exponent from $2^{k-1}/k$ to $2^{k-1}/(k-1)+2\log k-O(1)$. In multiplicative form, the gain over~\eqref{bentw} is
 \[
-\frac{2^{k-1}}{k-1} - \frac{2^{k-1}}{k} - O(1) = \frac{2^{k-1}}{k(k-1)} - O(1),
+k^2 2^{2^{k-1}/(k(k-1))-O(1)}.
 \]
-so the lower bound improves by a multiplicative factor of $2^{2^{k-1}/(k(k-1)) - O(1)}$.
+The exponential part of the gain comes from the local lemma, while the additional factor $k^2$ comes from the refined dependency count.
 
-This short note is organised as follows. We recall the random colouring of~\cite{BENTW} and its key probabilistic estimate in Section~\ref{colouring}, give the proof of Theorem~\ref{mainthm} in Section~\ref{pf}, and conclude with some remarks in Section~\ref{conc}.
+The paper is organised as follows. In Section~\ref{colouring}, we recall the colouring of Balogh--Eberhard--Narayanan--Treglown--Wagner and the associated probability estimate. In Section~\ref{counting}, we prove the refined counting lemma for fixed odd parts. In Section~\ref{pf}, we apply the Lov\'{a}sz local lemma and prove Theorem~\ref{mainthm}. We conclude with some remarks on the limitations of this method in Section~\ref{conc}.
 
 \section{The Balogh--Eberhard--Narayanan--Treglown--Wagner colouring}\label{colouring}
 
-We recall the random colouring introduced in~\cite{BENTW}. Independently colour each odd integer $q \le N$ with a random bit $X_q \in \{0,1\}$. For each $n \in [N]$, write $n = 2^{v_2(n)} \odd(n)$, where $\odd(n)$ is odd, and define
+We recall the random colouring introduced in~\cite{BENTW}. Independently colour each odd integer $q\le N$ with a random bit $X_q\in\{0,1\}$. For each $n\in[N]$, write
 \[
-\chi(n) = X_{\odd(n)} + v_2(n) \pmod{2}.
+n=2^{v_2(n)}\odd(n),
 \]
-Thus the colours alternate along every geometric progression $q, 2q, 4q, 8q, \dots$ with $q$ odd.
+where $\odd(n)$ is odd, and define
+\[
+\chi(n)=X_{\odd(n)}+v_2(n)\pmod 2.
+\]
+Thus the colours alternate along every geometric progression $q,2q,4q,8q,\dots$ with $q$ odd.
 
-We need the following estimate, which is the central probabilistic ingredient of~\cite{BENTW}.
+We shall use the following estimate, which is the central probabilistic ingredient of~\cite{BENTW}.
 
 \begin{claim}\label{probclaim}
-For every $k$-set $A \subset [N]$ with $S(A) \subset [N]$,
+For every $k$-set $A\subset [N]$ with $S(A)\subset [N]$,
 \[
-\mathbb{P}\big(S(A) \text{ is monochromatic}\big) \le 2^{1-2^{k-1}}.
+\mathbb P\big(S(A)\text{ is monochromatic}\big)\le 2^{1-2^{k-1}}.
 \]
 \end{claim}
 
 \begin{proof}
 We include the short argument for completeness.
 
-If $|S(A)| \le 2^k - 2$, then two distinct nonempty subsets $B_1, B_2 \subseteq A$ have the same sum. Removing $B_1 \cap B_2$ from both, we may assume $B_1$ and $B_2$ are disjoint and still have equal positive sums. Let $x = \sum_{a \in B_1} a = \sum_{a \in B_2} a$. Then $x \in S(A)$ and $2x = \sum_{a \in B_1 \cup B_2} a \in S(A)$, but the colouring satisfies $\chi(2x) \ne \chi(x)$. Hence $S(A)$ cannot be monochromatic, and the probability is~$0$.
-
-Now suppose $|S(A)| = 2^k - 1$, so all nonempty subset sums are distinct. For each odd $m \in \N$, define $G_m = \{m, 2m, 4m, \dots\} \cap [N]$; these progressions partition $[N]$. Let $s = \min_{a \in A} v_2(a)$ and write $a = 2^s a'$ for each $a \in A$. At least one of the integers $a'$ is odd. Among the $2^k$ subsets of $A$, exactly half yield
+If $|S(A)|\le 2^k-2$, then two distinct nonempty subsets $B_1,B_2\subseteq A$ have the same sum. Removing $B_1\cap B_2$ from both subsets, we may assume that $B_1$ and $B_2$ are disjoint and still have equal positive sums. Let
 \[
-\sum_{a \in B} a' \equiv 1 \pmod{2},
+x=\sum_{a\in B_1}a=\sum_{a\in B_2}a.
 \]
-and the empty subset is not among them. Hence there are exactly $2^{k-1}$ nonempty subsets $B \subseteq A$ for which $v_2\big(\sum_{a \in B} a\big) = s$. The corresponding $2^{k-1}$ sums are distinct and, having the same $2$-adic valuation, lie in distinct progressions $G_m$.
-
-Define $B_A \subseteq S(A)$ by choosing exactly one element from each progression $G_m$ that meets $S(A)$. Then $|B_A| \ge 2^{k-1}$. The colours of the elements of $B_A$ are independent fair bits, since they depend on distinct random variables $X_m$. Therefore
+Then $x\in S(A)$ and
 \[
-\mathbb{P}(B_A \text{ is monochromatic}) = 2^{1-|B_A|} \le 2^{1-2^{k-1}}.
+2x=\sum_{a\in B_1\cup B_2}a\in S(A),
 \]
-Since $S(A)$ monochromatic implies $B_A$ monochromatic, the result follows.
+but the colouring satisfies $\chi(2x)\ne \chi(x)$. Hence $S(A)$ cannot be monochromatic, and the probability is zero.
+
+Now suppose $|S(A)|=2^k-1$, so all nonempty subset sums are distinct. For each odd $m\in\N$, define
+\[
+G_m=\{m,2m,4m,\dots\}\cap [N].
+\]
+These progressions partition $[N]$. Let $s=\min_{a\in A}v_2(a)$ and write $a=2^s a'$ for each $a\in A$. At least one of the integers $a'$ is odd. Among the $2^k$ subsets of $A$, exactly half yield
+\[
+\sum_{a\in B}a'\equiv 1\pmod 2,
+\]
+since this parity map is a nonzero linear functional on the vector space of subsets of $A$ over $\mathbb F_2$. The empty subset is not among these subsets. Therefore there are exactly $2^{k-1}$ nonempty subsets $B\subseteq A$ for which
+\[
+v_2\left(\sum_{a\in B}a\right)=s.
+\]
+The corresponding $2^{k-1}$ sums are distinct and, having the same $2$-adic valuation, lie in distinct progressions $G_m$.
+
+Choose one element of $S(A)$ from each progression $G_m$ that meets $S(A)$, and call the resulting set $B_A$. Then $|B_A|\ge 2^{k-1}$. The colours of the elements of $B_A$ are independent fair bits, since they depend on distinct random variables $X_m$. Hence
+\[
+\mathbb P(B_A\text{ is monochromatic})=2^{1-|B_A|}\le 2^{1-2^{k-1}}.
+\]
+Since $S(A)$ monochromatic implies $B_A$ monochromatic, the claim follows.
 \end{proof}
 
-\section{Proof of the main result}\label{pf}
+\section{A refined fixed-odd-part count}\label{counting}
 
-In this section, we give the proof of Theorem~\ref{mainthm}. The key tool is the symmetric form of the Lov\'{a}sz local lemma (see~\cite{AlonSpencer}, for example).
+In this section we prove the counting estimate that sharpens the dependency bound. We use the convention that $\binom{u}{v}=0$ whenever $v<0$ or $u<v$.
+
+\begin{lemma}\label{fixedqlemma}
+Let
+\[
+\A=\left\{B\subset\N: |B|=k,\ \sum_{b\in B}b\le N\right\}.
+\]
+For a finite set $B\subset\N$, write
+\[
+O(B)=\{\odd(s):s\in S(B)\}.
+\]
+Then, for every odd integer $q\le N$,
+\begin{equation}\label{fixedqbound}
+\#\{B\in\A:q\in O(B)\}
+\le
+\frac{N^{k-1}}{((k-1)!)^2}
+\left(\log N+1+2\binom{2k-2}{k-1}\right).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Fix an odd integer $q\le N$. If $B\in\A$ and $q\in O(B)$, then there is a nonempty subset $T\subseteq B$ and an integer $j\ge0$ such that
+\[
+\sum_{t\in T}t=q2^j.
+\]
+Put $M=q2^j$ and $r=|T|$. Since $B\in\A$, we necessarily have $M\le N$.
+
+For fixed $M$ and $r$, the number of possible $r$-element sets $T$ with sum $M$ is at most
+\[
+\frac1{r!}\binom{M-1}{r-1}.
+\]
+Indeed, $\binom{M-1}{r-1}$ counts ordered positive compositions of $M$ into $r$ parts, while every $r$-element set with sum $M$ gives exactly $r!$ such ordered compositions. The remaining $k-r$ elements of $B$ have total sum at most $N-M$. The number of possible remaining sets is at most
+\[
+\frac1{(k-r)!}\binom{N-M}{k-r},
+\]
+because $\binom{N-M}{k-r}$ counts ordered positive $(k-r)$-tuples with total sum at most $N-M$, and every $(k-r)$-element set gives $(k-r)!$ such ordered tuples. These estimates may still overcount, since they do not enforce disjointness between $T$ and the remaining elements, but overcounting is harmless.
+
+Therefore
+\begin{equation}\label{precount}
+\#\{B\in\A:q\in O(B)\}
+\le
+\sum_{r=1}^{k}
+\sum_{\substack{j\ge0\\q2^j\le N}}
+\frac1{r!(k-r)!}
+\binom{q2^j-1}{r-1}
+\binom{N-q2^j}{k-r}.
+\end{equation}
+
+We estimate the right-hand side. For $r=1$,
+\[
+\sum_{\substack{j\ge0\\q2^j\le N}}
+\frac1{(k-1)!}\binom{N-q2^j}{k-1}
+\le
+(\log N+1)\frac{N^{k-1}}{((k-1)!)^2}.
+\]
+For $r\ge2$, we use
+\[
+\binom{q2^j-1}{r-1}\le \frac{(q2^j)^{r-1}}{(r-1)!}
+\]
+and
+\[
+\binom{N-q2^j}{k-r}\le \frac{N^{k-r}}{(k-r)!}.
+\]
+Furthermore,
+\[
+\sum_{\substack{j\ge0\\q2^j\le N}}(q2^j)^{r-1}\le 2N^{r-1},
+\]
+since the summands form a geometric progression with ratio $2^{r-1}\ge2$ and largest term at most $N^{r-1}$. Thus the contribution of a fixed $r\ge2$ to~\eqref{precount} is at most
+\[
+\frac{2N^{k-1}}{r!(r-1)!((k-r)!)^2}.
+\]
+Since
+\[
+\frac{((k-1)!)^2}{r!(r-1)!((k-r)!)^2}
+=
+\frac1r\binom{k-1}{r-1}^2
+\le
+\binom{k-1}{r-1}^2,
+\]
+we obtain
+\[
+\sum_{r=2}^k
+\frac{2N^{k-1}}{r!(r-1)!((k-r)!)^2}
+\le
+\frac{2N^{k-1}}{((k-1)!)^2}
+\sum_{r=2}^k\binom{k-1}{r-1}^2.
+\]
+By Vandermonde's identity,
+\[
+\sum_{r=1}^k\binom{k-1}{r-1}^2=\binom{2k-2}{k-1}.
+\]
+Combining the estimates for $r=1$ and $r\ge2$ proves~\eqref{fixedqbound}.
+\end{proof}
+
+\section{Proof of the main theorem}\label{pf}
+
+We shall use the symmetric form of the Lov\'{a}sz local lemma.
 
 \begin{lemma}[Symmetric Lov\'{a}sz local lemma]\label{lll}
-Let $\{E_i\}_{i \in I}$ be a finite family of events. Suppose each event has probability at most $p$, and each event is mutually independent of all but at most $D$ other events. If $ep(D+1) \le 1$, then $\mathbb{P}\big(\bigcap_{i \in I} E_i^c\big) > 0$.
+Let $\{E_i\}_{i\in I}$ be a finite family of events. Suppose each event has probability at most $p$, and each event is mutually independent of all but at most $D$ other events. If $ep(D+1)\le1$, then
+\[
+\mathbb P\left(\bigcap_{i\in I}E_i^c\right)>0.
+\]
 \end{lemma}
 
 \begin{proof}[Proof of Theorem~\ref{mainthm}]
 Let $N$ be an integer to be chosen later, and use the random colouring described in Section~\ref{colouring}. Define
 \[
-\A = \left\{ A \subset \N : |A| = k, \ \sum_{a \in A} a \le N \right\}.
+\A=\left\{A\subset\N: |A|=k,\ \sum_{a\in A}a\le N\right\}.
 \]
-It suffices to consider this family, since $S(A) \subset [N]$ implies $\sum_{a \in A} a \le N$. For each $A \in \A$, define the bad event
+It is enough to consider this family, since $S(A)\subset[N]$ implies $\sum_{a\in A}a\le N$. For each $A\in\A$, define the bad event
 \[
-E_A = \{S(A) \text{ is monochromatic}\}.
+E_A=\{S(A)\text{ is monochromatic}\}.
 \]
 By Claim~\ref{probclaim},
 \begin{equation}\label{pbound}
-\mathbb{P}(E_A) \le p := 2^{1-2^{k-1}}.
+\mathbb P(E_A)\le p:=2^{1-2^{k-1}}.
 \end{equation}
 
-For $A \in \A$, define $O(A) = \{\odd(s) : s \in S(A)\}$. The event $E_A$ depends only on the random variables $\{X_q : q \in O(A)\}$. Hence $E_A$ is mutually independent of every collection of events $\{E_B : O(A) \cap O(B) = \emptyset\}$. We define a dependency graph on $\A$ by joining $A$ and $B$ whenever $O(A) \cap O(B) \ne \emptyset$, and now bound its maximum degree.
-
-Fix $A \in \A$. Since $|S(A)| \le 2^k - 1$, we have $|O(A)| \le 2^k - 1$. Fix an odd integer $q \in O(A)$. We count the number of $B \in \A$ such that $q \in O(B)$.
-
-The condition $q \in O(B)$ means that there exists a nonempty subset $T \subseteq B$ and an integer $j \ge 0$ such that $\sum_{t \in T} t = q 2^j$. Put $M = q 2^j$; since $B \in \A$, we have $M \le N$. Suppose $|T| = r$. For fixed $M$ and $r$, the number of possible sets $T$ is at most $\binom{M-1}{r-1}$, and the remaining $k - r$ elements of $B$ contribute total sum at most $N - M$, giving at most $\binom{N-M}{k-r}$ possibilities (this bound is also valid when $r = k$). Therefore
-\begin{equation}\label{countB}
-\#\{B \in \A : q \in O(B)\} \le \sum_{r=1}^{k} \sum_{\substack{j \ge 0 \\ q 2^j \le N}} \binom{q 2^j - 1}{r-1} \binom{N - q 2^j}{k-r}.
-\end{equation}
-
-We estimate this sum. For $r = 1$,
+For $A\in\A$, recall that
 \[
-\sum_{\substack{j \ge 0 \\ q 2^j \le N}} \binom{N - q2^j}{k-1} \le (\log N + 1) N^{k-1}.
+O(A)=\{\odd(s):s\in S(A)\}.
 \]
-For $r \ge 2$, we use $\binom{q 2^j - 1}{r-1} \le (q 2^j)^{r-1}$ and $\binom{N - q 2^j}{k-r} \le N^{k-r}$. The inner geometric sum satisfies
+The event $E_A$ depends only on the random variables $\{X_q:q\in O(A)\}$. Since the random variables $X_q$ are mutually independent, $E_A$ is independent of the sigma-algebra generated by all events $E_B$ with $O(A)\cap O(B)=\emptyset$. We therefore define a dependency graph on $\A$ by joining $A$ and $B$ whenever $O(A)\cap O(B)\ne\emptyset$.
+
+Fix $A\in\A$. Since $|S(A)|\le 2^k-1$, we have $|O(A)|\le2^k-1$. By Lemma~\ref{fixedqlemma}, for each fixed $q\in O(A)$,
 \[
-\sum_{\substack{j \ge 0 \\ q 2^j \le N}} (q 2^j)^{r-1} \le 2 N^{r-1},
+\#\{B\in\A:q\in O(B)\}
+\le
+\frac{N^{k-1}}{((k-1)!)^2}
+\left(\log N+1+2\binom{2k-2}{k-1}\right).
 \]
-so the $r$-th contribution is at most $2N^{k-1}$. Summing over $r = 2, \dots, k$ gives at most $2k N^{k-1}$. Combining with the $r = 1$ term, for $k \ge 1$ and $N \ge 2$,
-\begin{equation}\label{perq}
-\#\{B \in \A : q \in O(B)\} \le 3k(\log N + 1) N^{k-1}.
+Thus the maximum degree $D$ of the dependency graph satisfies
+\begin{equation}\label{degreebound}
+D
+\le
+2^k
+\frac{N^{k-1}}{((k-1)!)^2}
+\left(\log N+1+2\binom{2k-2}{k-1}\right).
+\end{equation}
+For all sufficiently large $k$ in the range of $N$ chosen below, we have $\log N+1\le2^k$, and also
+\[
+\binom{2k-2}{k-1}\le4^{k-1}.
+\]
+Therefore, for all sufficiently large $k$,
+\begin{equation}\label{degreebound2}
+D\le 8^k\frac{N^{k-1}}{((k-1)!)^2}.
 \end{equation}
 
-Since $|O(A)| \le 2^k - 1$, the maximum degree in the dependency graph satisfies
-\begin{equation}\label{Dbound}
-D \le 3k \cdot 2^k (\log N + 1) N^{k-1}.
-\end{equation}
-
-Now choose
+Let $c_0>0$ be a sufficiently small absolute constant, and set
 \begin{equation}\label{Nchoice}
-N = \left\lfloor 2^{(2^{k-1} - Ck)/(k-1)} \right\rfloor
+N=\left\lfloor c_0 k^2 2^{2^{k-1}/(k-1)}\right\rfloor.
 \end{equation}
-where $C > 0$ is a sufficiently large absolute constant. Then $N^{k-1} \le 2^{2^{k-1} - Ck}$ and $\log N + 1 \le 2^k$ for all sufficiently large $k$. Hence
+Then
 \[
-D \le 3k \cdot 2^k \cdot 2^k \cdot 2^{2^{k-1} - Ck}.
+N^{k-1}\le c_0^{k-1}k^{2k-2}2^{2^{k-1}}.
 \]
-Since $3k \le 2^{2k}$ for all sufficiently large $k$, we obtain
+By the elementary Stirling lower bound
+\[
+(k-1)!\ge \left(\frac{k-1}{e}\right)^{k-1},
+\]
+we have
+\[
+\frac{k^{2k-2}}{((k-1)!)^2}
+\le
+\left(\frac{ek}{k-1}\right)^{2k-2}
+\le C_1^k
+\]
+for an absolute constant $C_1>0$. Hence~\eqref{degreebound2} gives
 \begin{equation}\label{Dfinal}
-D \le 2^{2^{k-1} - (C-4)k}.
+D\le C_2^k c_0^{k-1}2^{2^{k-1}}
 \end{equation}
+for an absolute constant $C_2>0$.
 
-Recalling~\eqref{pbound}, for sufficiently large $k$,
+Choose $c_0>0$ so small that $C_2c_0<1/4$. Then, for all sufficiently large $k$,
 \[
-ep(D+1) \le e \cdot 2^{1-2^{k-1}} \left(2^{2^{k-1} - (C-4)k} + 1\right) \le 2^{-(C-5)k}.
+D\le 2^{-k}2^{2^{k-1}}.
 \]
-Choosing $C$ sufficiently large, for example $C = 10$, gives $ep(D+1) < 1$. By Lemma~\ref{lll}, with positive probability none of the events $E_A$ occurs. Therefore there exists a two-colouring of $[N]$ such that no $k$-set $A$ has $S(A)$ monochromatic. Hence
+Combining this with~\eqref{pbound}, we get
 \[
-F(k) > N = \left\lfloor 2^{(2^{k-1} - Ck)/(k-1)} \right\rfloor,
+ep(D+1)
+\le
+e2^{1-2^{k-1}}\left(2^{-k}2^{2^{k-1}}+1\right)<1
 \]
-proving~\eqref{nb} and consequently~\eqref{nb2}.
+for all sufficiently large $k$. The symmetric Lov\'{a}sz local lemma therefore implies that, with positive probability, none of the events $E_A$ occurs. Consequently, there exists a two-colouring of $[N]$ such that no $k$-set $A$ with $S(A)\subset[N]$ has $S(A)$ monochromatic. Hence $F(k)>N$.
+
+From~\eqref{Nchoice}, after decreasing the absolute constant if necessary, this gives
+\[
+F(k)\ge c k^2 2^{2^{k-1}/(k-1)}
+\]
+for all sufficiently large $k$. Taking logarithms gives~\eqref{logmainbound}.
 \end{proof}
 
 \section{Concluding remarks}\label{conc}
 
-We conclude this note with a few remarks.
+We conclude with a few remarks.
 
-First, we emphasise that the argument uses exactly the same random colouring as Balogh--Eberhard--Narayanan--Treglown--Wagner~\cite{BENTW}. The improvement comes entirely from replacing the global union bound over all $k$-sets by a local lemma argument. This is possible because the event $\{S(A) \text{ is monochromatic}\}$ depends only on the random bits indexed by the odd parts of the elements of $S(A)$, and a fixed odd part can occur in the subset sums of only $O_k((\log N) N^{k-1})$ relevant $k$-sets.
+First, the colouring used here is exactly the colouring of Balogh--Eberhard--Narayanan--Treglown--Wagner~\cite{BENTW}. The improvement comes from two sources: replacing the global union bound by a local lemma argument, and then refining the local dependency count by using the total-sum constraint on both sides of a distinguished subset-sum equation. The first step changes the denominator in the main exponential term from $k$ to $k-1$; the second gives the additional polynomial factor $k^2$.
 
-Second, while our bound~\eqref{nb2} improves the exponent from $2^{k-1}/k$ to $2^{k-1}/(k-1) - O(1)$, a multiplicative gain of $2^{2^{k-1}/(k(k-1)) - O(1)}$, this lower bound remains considerably far from the best known upper bound for $F(k)$, which is of tower type; see~\cite{ub}, for instance. Closing this gap remains a major open problem.
+Second, this method appears to have a natural limitation. In the dependency graph used above, two events are adjacent when their finite-sum sets share an odd part. For a fixed odd integer $q$, the condition that $q$ occur as the odd part of a subset sum imposes essentially one additive equation,
+\[
+\sum_{t\in T}t=q2^j.
+\]
+Thus one should expect an $N^{k-1}$-scale family of neighbouring $k$-sets. The refined count in Lemma~\ref{fixedqlemma} improves the factorial and polynomial factors in this estimate, but it does not change the power of $N$. For this reason, the symmetric local lemma with this dependency graph should not be expected to improve the denominator beyond $k-1$.
 
-Third, we note that the dependency bound~\eqref{Dbound} is unlikely to be tight, and a more careful analysis of the dependency structure may yield further modest improvements. However, any approach based on the colouring of~\cite{BENTW} is fundamentally limited by the probability estimate in Claim~\ref{probclaim}, and substantially improving the lower bound for $F(k)$ would likely require new colouring constructions.
+Third, a further improvement would likely require using more than the uniform worst-case probability bound in Claim~\ref{probclaim}. For each $A$, the same proof actually gives
+\[
+\mathbb P(E_A)\le 2^{1-|O(A)|}.
+\]
+Generic sets $A$ may have $|O(A)|$ substantially larger than $2^{k-1}$, while sets with near-minimal $|O(A)|$ should be highly structured. An asymmetric or cluster-expansion local lemma, combined with an inverse theorem for sets with few odd parts among their subset sums, might therefore lead to further progress. We do not pursue this here.
+specific case?
 
 \section*{Acknowledgements}
 The author thanks J\'{o}zsef Balogh, Sean Eberhard, Bhargav Narayanan, Andrew Treglown, and Adam Zsolt Wagner for their foundational work~\cite{BENTW} on which this note builds.
@@ -256,11 +406,6 @@ Monochromatic sumsets,
 R.~L.~Graham, B.~L.~Rothschild, and J.~H.~Spencer,
 \emph{Ramsey Theory},
 2nd~ed., Wiley, 1990.
-
-\bibitem{nguyenvu}
-H.~Nguyen and V.~Vu,
-Optimal inverse Littlewood--Offord theorems,
-\emph{Adv. Math.} \textbf{226} (2011), 5298--5319.
 
 \bibitem{ub}
 R.~L.~Graham,
